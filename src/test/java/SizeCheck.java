@@ -13,17 +13,17 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class McQueenTest {
+public class SizeCheck {
     private WebDriver driver;
 
     @BeforeMethod(alwaysRun = true)
     public void setupBrowser(){
-       System.setProperty("webdriver.chrome.driver", "C:\\Users\\Owner\\Lab9\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Owner\\Lab9\\chromedriver.exe");
         driver = new ChromeDriver();
     }
 
     @Test
-    public void testAddingToCart() throws InterruptedException {
+    public void testCheckingSize() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().setSize(new Dimension(1600, 1000));
         driver.get("https://www.alexandermcqueen.com/en-us/boots/hybrid-chelsea-boot-586198WHX521000.html");
@@ -49,7 +49,8 @@ public class McQueenTest {
                 "/html/body/div[4]/div[3]/div/div[2]/div/div[2]/div[4]/div/div[4]/div[2]"));
         wait.until(ExpectedConditions.elementToBeClickable(viewCart)).click();
         Thread.sleep(1000);
-        Assert.assertEquals(driver.findElements(By.cssSelector("[data-uuid]")).size(),4);
+        Assert.assertEquals(driver.findElement(By.xpath(
+                "//*[@id=\"main-content\"]/div/div[2]/div/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]")).getText(),"44");
     }
 
     @AfterMethod(alwaysRun = true)
